@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - dados/
+
+website:
+  title: "Painel Político Municipal"
+  site-url: https://renansuzano.github.io/painel_politico_municipal/
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/renansuzano/painel_politico_municipal
+        aria-label: Código no GitHub
+
+lang: pt-BR
+
+format:
+  html:
+    theme: cosmo
+    css: estilo.css
+    toc: true
+    toc-title: "Nesta página"
+    toc-location: left
+    page-layout: full
+    include-in-header:
+      text: |
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+execute:
+  echo: false
+  warning: false
+  message: false

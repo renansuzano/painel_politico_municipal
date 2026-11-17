@@ -1,0 +1,240 @@
+---
+title: "Painel Político Municipal"
+subtitle: "Prefeitos, Câmaras Municipais e finanças dos municípios brasileiros, 2000–2028"
+author: "Renan Suzano"
+date: today
+date-format: "DD/MM/YYYY"
+---
+
+::: {.callout-note}
+**Versão preliminar, para discussão.** Projeto pessoal e independente de Renan Suzano, doutorando em Ciência Política no IESP-UERJ e pesquisador do MAPE/IESP-UERJ. Não é um produto oficial do MAPE. O painel complementa o [mape_municipios](https://mape.org.br/dados/) com as características políticas do prefeito, a composição da Câmara Municipal em cadeiras e as finanças municipais harmonizadas desde 2000.
+:::
+
+```{ojs}
+//| output: false
+geo        = FileAttachment("dados/municipios.geojson").json()
+resumo     = FileAttachment("dados/resumo_uf.json").json()
+dicionario = FileAttachment("dados/dicionario.json").json()
+L          = require("leaflet@1.9.4")
+
+inicios = [2001, 2005, 2009, 2013, 2017, 2021, 2025]
+rotulo  = a => `${a}–${a + 3}`
+ufs     = ["Brasil", ...Array.from(new Set(geo.features.map(f => f.properties.uf))).sort()]
+
+coresBloco = ({esquerda: "#c0392b", centro: "#f1c40f", direita: "#2c3e50"})
+coresTransicao = ({
+  "segue na esquerda": "#f1a99b",
+  "saiu da esquerda": "#2b6cb0",
+  "entrou na esquerda": "#c0392b",
+  "segue fora da esquerda": "#e2e8f0"
+})
+
+transicao = (p, a) => {
+  const x = p["b" + (a - 4)], y = p["b" + a];
+  if (x == null || y == null) return null;
+  const ex = x === "esquerda", ey = y === "esquerda";
+  return ex && ey ? "segue na esquerda" : ex ? "saiu da esquerda"
+       : ey ? "entrou na esquerda" : "segue fora da esquerda";
+}
+
+pct = x => x == null ? "–" : (100 * x).toLocaleString("pt-BR", {maximumFractionDigits: 1}) + "%"
+num = (x, d = 0) => x == null ? "–" : x.toLocaleString("pt-BR", {maximumFractionDigits: d, minimumFractionDigits: d})
+```
+
+::: {.filtro-uf}
+```{ojs}
+viewof uf = Inputs.select(ufs, {label: "Unidade da Federação", value: "Brasil"})
+```
+:::
+
+```{ojs}
+//| output: false
+selecionados = uf === "Brasil" ? geo.features : geo.features.filter(f => f.properties.uf === uf)
+resumoUF = resumo.filter(d => d.uf === uf)
+```
+
+## Mapa
+
+```{ojs}
+viewof tipo = Inputs.radio(["Bloco do prefeito", "Transição entre mandatos"],
+                           {label: "Mapa", value: "Bloco do prefeito"})
+```
+
+```{ojs}
+viewof mandato = Inputs.select(tipo === "Bloco do prefeito" ? inicios : inicios.slice(1), {
+  label: tipo === "Bloco do prefeito" ? "Mandato" : "Mandato de chegada",
+  format: a => tipo === "Bloco do prefeito" ? rotulo(a) : `${rotulo(a - 4)} → ${rotulo(a)}`,
+  value: 2017
+})
+```
+
+```{ojs}
+mapa = {
+  const div = html`<div style="height: 620px; border-radius: 6px;"></div>`;
+  yield div;
+
+  const m = L.map(div, {preferCanvas: true, zoomSnap: 0.25});
+  m.attributionControl.addAttribution("Malhas: geobr/IBGE");
+
+  const cor = p => {
+    if (tipo === "Bloco do prefeito") return coresBloco[p["b" + mandato]] ?? "#d1d5db";
+    return coresTransicao[transicao(p, mandato)] ?? "#d1d5db";
+  };
+  const dica = p => {
+    const linha = a => `${rotulo(a)}: ${p["p" + a] ?? "sem informação"} (${p["b" + a] ?? "–"})`;
+    return tipo === "Bloco do prefeito"
+      ? `<b>${p.nome} (${p.uf})</b><br>${linha(mandato)}`
+      : `<b>${p.nome} (${p.uf})</b><br>${linha(mandato - 4)}<br>${linha(mandato)}<br><i>${transicao(p, mandato) ?? "sem informação"}</i>`;
+  };
+
+  const camada = L.geoJSON({type: "FeatureCollection", features: selecionados}, {
+    style: f => ({fillColor: cor(f.properties), fillOpacity: 0.9, weight: 0.3, color: "#ffffff"}),
+    onEachFeature: (f, l) => l.bindTooltip(dica(f.properties), {sticky: true})
+  }).addTo(m);
+  m.fitBounds(camada.getBounds());
+  invalidation.then(() => m.remove());
+}
+```
+
+```{ojs}
+{
+  const cores = tipo === "Bloco do prefeito" ? coresBloco : coresTransicao;
+  return html`<div class="legenda">${Object.entries(cores).map(([k, v]) =>
+    html`<span><span class="cor" style="background:${v}"></span>${k}</span>`)}
+    <span><span class="cor" style="background:#d1d5db"></span>sem informação</span></div>`;
+}
+```
+
+[Use os botões + e − ou a roda do mouse para aproximar. Passe o mouse sobre um município para ver o partido do prefeito. Bloco ideológico segundo Bolognesi, Ribeiro e Codato (2023), em três blocos.]{.nota}
+
+## Prefeitos
+
+Bloco ideológico do prefeito em exercício no primeiro ano de cada mandato.
+
+```{ojs}
+Inputs.table(inicios.map(a => {
+  const c = {Mandato: rotulo(a), esquerda: 0, centro: 0, direita: 0, "sem informação": 0};
+  for (const f of selecionados) c[f.properties["b" + a] ?? "sem informação"]++;
+  c["% esquerda"] = pct(c.esquerda / selecionados.length);
+  return c;
+}), {rows: 8})
+```
+
+## Transições
+
+Situação do prefeito em relação à esquerda entre o primeiro ano de dois mandatos consecutivos: são os grupos de tratamento e controle do desenho de diferenças em diferenças.
+
+```{ojs}
+Inputs.table(inicios.slice(1).map(a => {
+  const c = {"Transição": `${rotulo(a - 4)} → ${rotulo(a)}`,
+             "segue na esquerda": 0, "saiu da esquerda": 0,
+             "entrou na esquerda": 0, "segue fora da esquerda": 0, "sem informação": 0};
+  for (const f of selecionados) c[transicao(f.properties, a) ?? "sem informação"]++;
+  return c;
+}), {rows: 8})
+```
+
+## Câmara Municipal
+
+Primeiro ano de cada mandato; médias entre os municípios com informação. Coligação indisponível em 2001–2004 (dados incompletos na fonte).
+
+```{ojs}
+Inputs.table(resumoUF.filter(d => inicios.includes(d.ano)).map(d => ({
+  "Mandato": rotulo(d.ano),
+  "Prefeito reeleito": pct(d.reeleito),
+  "Cadeiras do partido do prefeito": pct(d.pct_partido),
+  "Cadeiras da coligação do prefeito": pct(d.pct_coligacao),
+  "Coligação com maioria": pct(d.maioria),
+  "Nº efetivo de partidos": num(d.nep, 2),
+  "Vereadores reeleitos": pct(d.renovacao)
+})), {rows: 8})
+```
+
+## Finanças
+
+### Totais dos municípios
+
+R\$ bilhões de dezembro de 2024, deflacionados pelo IPCA. Soma dos municípios da UF selecionada.
+
+```{ojs}
+Plot.plot({
+  width: 900, height: 360, marginLeft: 60,
+  x: {label: null, tickFormat: d => String(d)},
+  y: {label: "R$ bilhões", grid: true},
+  color: {legend: true},
+  marks: [
+    Plot.lineY(resumoUF.filter(d => d.ano <= 2025).flatMap(d => [
+      {ano: d.ano, serie: "Receita corrente", valor: d.receita_corrente_def / 1e9},
+      {ano: d.ano, serie: "Despesa com pessoal", valor: d.desp_pessoal_def / 1e9},
+      {ano: d.ano, serie: "Investimento", valor: d.investimento_def / 1e9}
+    ]).filter(d => d.valor > 0), {x: "ano", y: "valor", stroke: "serie", strokeWidth: 2, tip: true})
+  ]
+})
+```
+
+### Composição da despesa
+
+Medianas municipais da UF selecionada, em %. Despesa por função disponível a partir de 2002.
+
+```{ojs}
+Plot.plot({
+  width: 900, height: 360, marginLeft: 50,
+  x: {label: null, tickFormat: d => String(d)},
+  y: {label: "%", grid: true},
+  color: {legend: true},
+  marks: [
+    Plot.lineY(resumoUF.filter(d => d.ano <= 2025).flatMap(d => [
+      {ano: d.ano, serie: "Pessoal / despesa total", valor: d.med_pessoal},
+      {ano: d.ano, serie: "Investimento / despesa total", valor: d.med_investimento},
+      {ano: d.ano, serie: "Saúde / despesa por função", valor: d.med_saude},
+      {ano: d.ano, serie: "Educação / despesa por função", valor: d.med_educacao},
+      {ano: d.ano, serie: "Autonomia fiscal", valor: d.med_autonomia}
+    ]).filter(d => d.valor != null).map(d => ({...d, valor: 100 * d.valor})),
+    {x: "ano", y: "valor", stroke: "serie", strokeWidth: 2, tip: true})
+  ]
+})
+```
+
+## Dicionário de variáveis
+
+As variáveis monetárias aparecem com três sufixos: `_corr` (R\$ correntes), `_def` (R\$ de dez/2024) e `_pc` (R\$ de dez/2024 per capita).
+
+```{ojs}
+viewof busca = Inputs.search(dicionario, {placeholder: "Buscar variável ou descrição"})
+```
+
+```{ojs}
+Inputs.table(busca, {
+  columns: ["modulo", "variavel", "descricao", "unidade", "nivel", "fonte", "anos"],
+  header: {modulo: "Módulo", variavel: "Variável", descricao: "Descrição",
+           unidade: "Unidade", nivel: "Nível", fonte: "Fonte", anos: "Anos"},
+  width: {descricao: 420}, rows: 20, layout: "auto"
+})
+```
+
+## Metodologia
+
+```{r}
+#| results: asis
+md <- readLines("../docs/metodologia.md", encoding = "UTF-8")
+md <- md[-1]                                  # remove o título do documento
+md <- sub("^(#+) ", "\\1# ", md)              # rebaixa os títulos para esta seção
+cat(md, sep = "\n")
+```
+
+## Como reproduzir
+
+O código está no [GitHub](https://github.com/renansuzano/painel_politico_municipal). Os dados vêm da Base dos Dados (BigQuery) e exigem um projeto no Google Cloud.
+
+```r
+# 1. Clonar o repositório e abrir painel_politico_municipal.Rproj
+# 2. Criar o arquivo .Renviron com:  billing_project_id=SEU-ID
+# 3. Rodar, em ordem:
+source("R/01_prefeitos_tse.R")
+source("R/02_camara_vereadores.R")
+source("R/03_financas_finbra.R")
+source("R/90_painel.R")
+
+# Painel final
+painel <- arrow::read_parquet("output/painel_politico_municipal.parquet")
+```

@@ -43,7 +43,26 @@ source("R/02_camara_vereadores.R")   # depende do módulo 1
 source("R/03_financas_finbra.R")
 source("R/90_painel.R")
 source("R/91_mapas.R")               # depende do painel
+source("R/92_dados_site.R")          # dados do site
 ```
+
+## Site e relatório
+
+**Site** (`site/`): página única com filtro por UF, mapa interativo, tabelas, gráficos, dicionário e metodologia, publicada no GitHub Pages em https://renansuzano.github.io/painel_politico_municipal/.
+
+```r
+source("R/92_dados_site.R")   # gera site/dados/ a partir do painel
+```
+
+No Terminal, a partir da pasta do projeto:
+
+```
+cd site
+quarto preview            # visualizar localmente
+quarto publish gh-pages   # publicar (ramo gh-pages)
+```
+
+**Relatório** (`relatorio.qmd`): a mesma informação num único arquivo HTML, para enviar por e-mail. Abra no RStudio e clique em **Render**.
 
 ## Status
 
