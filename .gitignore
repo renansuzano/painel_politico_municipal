@@ -1,0 +1,17 @@
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Dados grandes (regenerados pelos scripts)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+output/*
+!output/.gitkeep
+
+# Credenciais
+*.json
+.Renviron

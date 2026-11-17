@@ -1,0 +1,87 @@
+modulo,variavel,descricao,unidade,nivel,fonte,anos_previstos,status
+chave,cod_ibge,Código IBGE do município (7 dígitos),texto,município,IBGE,2000-2024,implementada
+chave,sigla_uf,Sigla da UF,texto,município,TSE/IBGE,2000-2028,implementada
+chave,ano,Ano civil,inteiro,ano,-,2000-2024,implementada
+chave,mandato,Mandato municipal (ex. 2001-2004),texto,mandato,TSE,2001-2028,implementada
+chave,id_pleito_prefeito,Identificador da eleição que elegeu o prefeito em exercício (liga a prefeitos_pleitos.parquet),texto,ano,calculada,2001-2028,implementada
+prefeito,sigla_partido_prefeito,Partido do prefeito eleito,texto,mandato,TSE,2000-2024,implementada
+prefeito,nome_prefeito,Nome do prefeito em exercício,texto,ano,TSE,2001-2028,planejada
+prefeito,bloco_prefeito,Bloco ideológico do partido do prefeito,esquerda/centro/direita,mandato,Bolognesi et al.,2000-2024,implementada
+prefeito,ideologia_media_prefeito,Média ideológica do partido do prefeito (escala 0-10),escala 0-10,mandato,Bolognesi et al. (2023),2000-2024,implementada
+prefeito,classificacao_original_prefeito,Classificação em sete categorias (extrema-esquerda a extrema-direita),categórica,mandato,Bolognesi et al. (2023),2000-2024,implementada
+prefeito,esquerda,Prefeito de partido de esquerda (tratamento),0/1,mandato,calculada,2000-2024,implementada
+prefeito,votos_validos_pct,% dos votos válidos do eleito,proporção,mandato,TSE,2000-2024,implementada
+prefeito,margem_vitoria,Diferença para o segundo colocado,pontos percentuais,mandato,TSE,2000-2024,implementada
+prefeito,reeleito,Prefeito reeleito,0/1,mandato,TSE,2000-2024,implementada
+prefeito,mesmo_partido_anterior,Mesmo partido do mandato anterior,0/1,mandato,calculada,2004-2024,implementada
+prefeito,mesmo_bloco_anterior,Mesmo bloco ideológico do mandato anterior,0/1,mandato,calculada,2004-2024,implementada
+prefeito,transicao_bloco,Bloco do mandato anterior -> bloco atual (ex. esquerda->direita),texto,mandato,calculada,2004-2024,implementada
+prefeito,n_candidatos_prefeito,Número de candidatos a prefeito,contagem,mandato,TSE,2000-2024,implementada
+prefeito,segundo_turno,Eleição decidida em segundo turno,0/1,mandato,TSE,2000-2024,implementada
+prefeito,disputa_esq_naoesq,Entre os dois mais votados há um candidato de esquerda e um de fora da esquerda,0/1,mandato,calculada,2000-2024,implementada
+prefeito,margem_esquerda,Votos do candidato de esquerda menos os do adversário de fora da esquerda (% dos válidos); positivo = esquerda venceu,pontos percentuais,mandato,calculada,2000-2024,implementada
+prefeito,turno_margem,Turno usado no cálculo da margem (1 ou 2),inteiro,mandato,TSE,2000-2024,implementada
+prefeito,segundo_mandato,Prefeito em segundo mandato consecutivo (não pode concorrer de novo),0/1,mandato,calculada,2004-2024,implementada
+prefeito,ano_mandato,Ano dentro do mandato (1 a 4),inteiro,ano,calculada,2001-2028,implementada
+prefeito,ano_eleitoral,Último ano do mandato (ano de eleição municipal),0/1,ano,calculada,2001-2028,implementada
+prefeito,flag_suplementar,Mandato definido ou alterado por eleição suplementar,0/1,mandato,TSE,2000-2024,implementada
+prefeito,flag_troca_no_ano,Posse de prefeito eleito em eleição suplementar dentro do ano,0/1,ano,calculada,2001-2028,planejada
+prefeito,sigla_partido_presidente,Partido do presidente em 1º de julho,texto,ano,data/external/presidentes.csv,2000-2026,planejada
+prefeito,bloco_presidente,Bloco ideológico do presidente,esquerda/centro/direita,ano,data/external/presidentes.csv,2000-2026,planejada
+prefeito,sigla_partido_governador,Partido do governador eleito,texto,ano,TSE,1999-2026,planejada
+prefeito,bloco_governador,Bloco ideológico do governador,esquerda/centro/direita,ano,calculada,1999-2026,planejada
+prefeito,alinhado_presidente,Prefeito do mesmo partido do presidente,0/1,ano,TSE,2000-2024,implementada
+prefeito,alinhado_governador,Prefeito do mesmo partido do governador,0/1,ano,TSE,2000-2024,implementada
+prefeito,alinhado_bloco_presidente,Prefeito do mesmo bloco ideológico do presidente,0/1,ano,calculada,2000-2024,implementada
+prefeito,alinhado_bloco_governador,Prefeito do mesmo bloco ideológico do governador,0/1,ano,calculada,2000-2024,implementada
+camara,n_cadeiras,Número de cadeiras na Câmara,contagem,mandato,TSE,2000-2024,implementada
+camara,ano_camara,Ano da eleição que formou a legislatura,inteiro,ano,calculada,2000-2024,implementada
+camara,nep_cadeiras,Número efetivo de partidos (cadeiras),índice,mandato,calculada,2000-2024,implementada
+camara,pct_cadeiras_esquerda,% de cadeiras de partidos de esquerda,proporção,mandato,calculada,2000-2024,implementada
+camara,pct_cadeiras_centro,% de cadeiras de partidos de centro,proporção,mandato,calculada,2000-2024,implementada
+camara,pct_cadeiras_direita,% de cadeiras de partidos de direita,proporção,mandato,calculada,2000-2024,implementada
+camara,pct_cadeiras_sem_bloco,% de cadeiras de partidos sem classificação,proporção,mandato,calculada,2000-2024,implementada
+camara,bloco_majoritario_camara,"Bloco com mais cadeiras (ou ""empate"")",categórica,mandato,calculada,2000-2024,implementada
+camara,ideologia_media_camara,Média ideológica da Câmara ponderada pelas cadeiras,escala 0-10,mandato,calculada,2000-2024,implementada
+camara,pct_cadeiras_partido_prefeito,% de cadeiras do partido do prefeito,proporção,ano,calculada,2000-2024,implementada
+camara,coligacao_prefeito,Partidos da coligação do prefeito em exercício,texto,ano,TSE (partidos),2004-2028,implementada
+camara,n_partidos_coligacao,Número de partidos na coligação do prefeito,contagem,ano,TSE (partidos),2004-2028,implementada
+camara,bloco_coligacao,"Bloco predominante na coligação do prefeito (ou ""misto"")",categórica,ano,calculada,2004-2028,implementada
+camara,pct_cadeiras_coligacao_prefeito,% de cadeiras dos partidos da coligação do prefeito,proporção,ano,calculada,2005-2028,implementada
+camara,maioria_coligacao_prefeito,Coligação do prefeito tem maioria na Câmara,0/1,ano,calculada,2005-2028,implementada
+camara,alinhamento_bloco,Bloco majoritário da Câmara igual ao do prefeito,0/1,ano,calculada,2000-2024,implementada
+camara,taxa_reeleicao_vereadores,% dos vereadores eleitos que já tinham mandato na legislatura anterior,proporção,mandato,calculada,2004-2024,implementada
+camara,pct_cadeiras_oposicao,% de cadeiras de partidos fora da coligação do prefeito,proporção,ano,calculada,2005-2028,implementada
+financas,receita_orcamentaria,"Receita orçamentária bruta (1.0.0.0) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2000-2025,implementada
+financas,receita_corrente,"Receita corrente bruta (1.1.0.0) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2000-2025,implementada
+financas,receita_tributaria_propria,"Impostos, taxas e contribuições de melhoria (1.1.1.0) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2000-2025,implementada
+financas,transferencias_correntes,"Transferências correntes (1.1.7.0) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2000-2025,implementada
+financas,fpm,"Cota-parte do FPM (1.1.7.1.1.51; total ou soma das partes) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2000-2025,implementada
+financas,receita_capital,"Receita de capital (1.2.0.0) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2000-2025,implementada
+financas,despesa_total,"Despesa empenhada total: correntes + capital (2.3.0 + 2.4.0) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2000-2025,implementada
+financas,despesa_funcoes,"Soma das despesas empenhadas por função (3.01 a 3.28) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2002-2025,implementada
+financas,desp_pessoal,"Pessoal e encargos sociais, empenhado (2.3.1) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2000-2025,implementada
+financas,investimento,"Investimentos, empenhado (2.4.4) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2000-2025,implementada
+financas,desp_saude,"Função saúde, empenhado (3.10) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2002-2025,implementada
+financas,desp_educacao,"Função educação, empenhado (3.12) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2002-2025,implementada
+financas,desp_assistencia,"Função assistência social, empenhado (3.08) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2002-2025,implementada
+financas,desp_habitacao,"Função habitação, empenhado (3.16) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2002-2025,implementada
+financas,desp_urbanismo,"Função urbanismo, empenhado (3.15) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2002-2025,implementada
+financas,desp_saneamento,"Função saneamento, empenhado (3.17) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2002-2025,implementada
+financas,desp_legislativo,"Função legislativa, empenhado (3.01) — em R$ correntes (_corr), R$ de dez/2024 (_def) e R$ de dez/2024 per capita (_pc)",R$,ano,SICONFI/FINBRA (Base dos Dados),2002-2025,implementada
+financas,populacao,População estimada (IBGE),habitantes,ano,IBGE (Base dos Dados),2000-2025,implementada
+financas,autonomia_fiscal,Receita tributária própria / receita corrente,proporção,ano,calculada,2000-2025,implementada
+financas,dependencia_transf,Transferências correntes / receita corrente,proporção,ano,calculada,2000-2025,implementada
+financas,dependencia_fpm,FPM / receita corrente,proporção,ano,calculada,2000-2025,implementada
+financas,desp_pessoal_pct,Pessoal / despesa total,proporção,ano,calculada,2000-2025,implementada
+financas,investimento_pct,Investimento / despesa total,proporção,ano,calculada,2000-2025,implementada
+financas,desp_saude_pct,Saúde / despesa por funções,proporção,ano,calculada,2002-2025,implementada
+financas,desp_educacao_pct,Educação / despesa por funções,proporção,ano,calculada,2002-2025,implementada
+financas,desp_assistencia_pct,Assistência social / despesa por funções,proporção,ano,calculada,2002-2025,implementada
+financas,desp_habitacao_pct,Habitação / despesa por funções,proporção,ano,calculada,2002-2025,implementada
+financas,desp_urbanismo_pct,Urbanismo / despesa por funções,proporção,ano,calculada,2002-2025,implementada
+financas,desp_saneamento_pct,Saneamento / despesa por funções,proporção,ano,calculada,2002-2025,implementada
+financas,desp_legislativo_pct,Legislativa / despesa por funções,proporção,ano,calculada,2002-2025,implementada
+financas,flag_sem_declaracao,Sem receita corrente ou sem despesa por função no ano,0/1,ano,calculada,2000-2025,implementada
+financas,flag_quebra_2013,Ano a partir da mudança para o SICONFI/PCASP,0/1,ano,calculada,2000-2025,implementada
+financas,flag_outlier,"Receita corrente per capita fora de [0,2; 5] × a mediana do ano",0/1,ano,calculada,2000-2025,implementada
