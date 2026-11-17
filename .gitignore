@@ -1,0 +1,34 @@
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Dados grandes (regenerados pelos scripts)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+output/*
+!output/.gitkeep
+
+# Credenciais
+*.json
+.Renviron
+
+# macOS
+.DS_Store
+
+# Relatório Quarto (gerado localmente; não publicar por enquanto)
+site/*.html
+site/*_files/
+/relatorio.html
+/relatorio_files/
+/painel.html
+/painel_files/
+.quarto/
+site/.quarto/
+
+# Site (gerado pelo Quarto; publicado no ramo gh-pages)
+site/_site/
+site/dados/
