@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Renan Suzano">
+
+<title>Painel Político Municipal</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+
+<link rel="stylesheet" href="estilo.css">
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Painel Político Municipal</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/renansuzano/painel_politico_municipal"> <i class="bi bi-github" role="img" aria-label="Código no GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#mapa" id="toc-mapa" class="nav-link active" data-scroll-target="#mapa">Mapa</a></li>
+  <li><a href="#prefeitos" id="toc-prefeitos" class="nav-link" data-scroll-target="#prefeitos">Prefeitos</a></li>
+  <li><a href="#transições" id="toc-transições" class="nav-link" data-scroll-target="#transições">Transições</a></li>
+  <li><a href="#câmara-municipal" id="toc-câmara-municipal" class="nav-link" data-scroll-target="#câmara-municipal">Câmara Municipal</a></li>
+  <li><a href="#finanças" id="toc-finanças" class="nav-link" data-scroll-target="#finanças">Finanças</a>
+  <ul class="collapse">
+  <li><a href="#totais-dos-municípios" id="toc-totais-dos-municípios" class="nav-link" data-scroll-target="#totais-dos-municípios">Totais dos municípios</a></li>
+  <li><a href="#composição-da-despesa" id="toc-composição-da-despesa" class="nav-link" data-scroll-target="#composição-da-despesa">Composição da despesa</a></li>
+  </ul></li>
+  <li><a href="#dicionário-de-variáveis" id="toc-dicionário-de-variáveis" class="nav-link" data-scroll-target="#dicionário-de-variáveis">Dicionário de variáveis</a></li>
+  <li><a href="#metodologia" id="toc-metodologia" class="nav-link" data-scroll-target="#metodologia">Metodologia</a>
+  <ul class="collapse">
+  <li><a href="#escopo" id="toc-escopo" class="nav-link" data-scroll-target="#escopo">Escopo</a></li>
+  <li><a href="#unidade-e-chaves" id="toc-unidade-e-chaves" class="nav-link" data-scroll-target="#unidade-e-chaves">Unidade e chaves</a></li>
+  <li><a href="#prefeito-módulo-1" id="toc-prefeito-módulo-1" class="nav-link" data-scroll-target="#prefeito-módulo-1">Prefeito (módulo 1)</a></li>
+  <li><a href="#câmara-módulo-2" id="toc-câmara-módulo-2" class="nav-link" data-scroll-target="#câmara-módulo-2">Câmara (módulo 2)</a></li>
+  <li><a href="#finanças-módulo-3" id="toc-finanças-módulo-3" class="nav-link" data-scroll-target="#finanças-módulo-3">Finanças (módulo 3)</a></li>
+  <li><a href="#pendências" id="toc-pendências" class="nav-link" data-scroll-target="#pendências">Pendências</a></li>
+  </ul></li>
+  <li><a href="#como-reproduzir" id="toc-como-reproduzir" class="nav-link" data-scroll-target="#como-reproduzir">Como reproduzir</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Painel Político Municipal</h1>
+<p class="subtitle lead">Prefeitos, Câmaras Municipais e finanças dos municípios brasileiros, 2000–2028</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Renan Suzano </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">17/11/2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Versão preliminar, para discussão.</strong> Projeto pessoal e independente de Renan Suzano, doutorando em Ciência Política no IESP-UERJ e pesquisador do MAPE/IESP-UERJ. Não é um produto oficial do MAPE. O painel complementa o <a href="https://mape.org.br/dados/">mape_municipios</a> com as características políticas do prefeito, a composição da Câmara Municipal em cadeiras e as finanças municipais harmonizadas desde 2000.</p>
+</div>
+</div>
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="15" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 14;"><span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>geo        <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"dados/municipios.geojson"</span>)<span class="op">.</span><span class="fu">json</span>()</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>resumo     <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"dados/resumo_uf.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>dicionario <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"dados/dicionario.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>L          <span class="op">=</span> <span class="pp">require</span>(<span class="st">"leaflet@1.9.4"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>inicios <span class="op">=</span> [<span class="dv">2001</span><span class="op">,</span> <span class="dv">2005</span><span class="op">,</span> <span class="dv">2009</span><span class="op">,</span> <span class="dv">2013</span><span class="op">,</span> <span class="dv">2017</span><span class="op">,</span> <span class="dv">2021</span><span class="op">,</span> <span class="dv">2025</span>]</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>rotulo  <span class="op">=</span> a <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>a<span class="sc">}</span><span class="vs">–</span><span class="sc">${</span>a <span class="op">+</span> <span class="dv">3</span><span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>ufs     <span class="op">=</span> [<span class="st">"Brasil"</span><span class="op">,</span> <span class="op">...</span><span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(<span class="kw">new</span> <span class="bu">Set</span>(geo<span class="op">.</span><span class="at">features</span><span class="op">.</span><span class="fu">map</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">uf</span>)))<span class="op">.</span><span class="fu">sort</span>()]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>coresBloco <span class="op">=</span> ({<span class="dt">esquerda</span><span class="op">:</span> <span class="st">"#c0392b"</span><span class="op">,</span> <span class="dt">centro</span><span class="op">:</span> <span class="st">"#f1c40f"</span><span class="op">,</span> <span class="dt">direita</span><span class="op">:</span> <span class="st">"#2c3e50"</span>})</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>coresTransicao <span class="op">=</span> ({</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"segue na esquerda"</span><span class="op">:</span> <span class="st">"#f1a99b"</span><span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"saiu da esquerda"</span><span class="op">:</span> <span class="st">"#2b6cb0"</span><span class="op">,</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"entrou na esquerda"</span><span class="op">:</span> <span class="st">"#c0392b"</span><span class="op">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">"segue fora da esquerda"</span><span class="op">:</span> <span class="st">"#e2e8f0"</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>transicao <span class="op">=</span> (p<span class="op">,</span> a) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> x <span class="op">=</span> p[<span class="st">"b"</span> <span class="op">+</span> (a <span class="op">-</span> <span class="dv">4</span>)]<span class="op">,</span> y <span class="op">=</span> p[<span class="st">"b"</span> <span class="op">+</span> a]<span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> y <span class="op">==</span> <span class="kw">null</span>) <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ex <span class="op">=</span> x <span class="op">===</span> <span class="st">"esquerda"</span><span class="op">,</span> ey <span class="op">=</span> y <span class="op">===</span> <span class="st">"esquerda"</span><span class="op">;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ex <span class="op">&amp;&amp;</span> ey <span class="op">?</span> <span class="st">"segue na esquerda"</span> <span class="op">:</span> ex <span class="op">?</span> <span class="st">"saiu da esquerda"</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>       <span class="op">:</span> ey <span class="op">?</span> <span class="st">"entrou na esquerda"</span> <span class="op">:</span> <span class="st">"segue fora da esquerda"</span><span class="op">;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>pct <span class="op">=</span> x <span class="kw">=&gt;</span> x <span class="op">==</span> <span class="kw">null</span> <span class="op">?</span> <span class="st">"–"</span> <span class="op">:</span> (<span class="dv">100</span> <span class="op">*</span> x)<span class="op">.</span><span class="fu">toLocaleString</span>(<span class="st">"pt-BR"</span><span class="op">,</span> {<span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span>}) <span class="op">+</span> <span class="st">"%"</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> (x<span class="op">,</span> d <span class="op">=</span> <span class="dv">0</span>) <span class="kw">=&gt;</span> x <span class="op">==</span> <span class="kw">null</span> <span class="op">?</span> <span class="st">"–"</span> <span class="op">:</span> x<span class="op">.</span><span class="fu">toLocaleString</span>(<span class="st">"pt-BR"</span><span class="op">,</span> {<span class="dt">maximumFractionDigits</span><span class="op">:</span> d<span class="op">,</span> <span class="dt">minimumFractionDigits</span><span class="op">:</span> d})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="filtro-uf">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="45" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 44;"><span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>viewof uf <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(ufs<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Unidade da Federação"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"Brasil"</span>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="52" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 51;"><span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>selecionados <span class="op">=</span> uf <span class="op">===</span> <span class="st">"Brasil"</span> <span class="op">?</span> geo<span class="op">.</span><span class="at">features</span> <span class="op">:</span> geo<span class="op">.</span><span class="at">features</span><span class="op">.</span><span class="fu">filter</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">uf</span> <span class="op">===</span> uf)</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>resumoUF <span class="op">=</span> resumo<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">uf</span> <span class="op">===</span> uf)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-3-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-3-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<section id="mapa" class="level2">
+<h2 class="anchored" data-anchor-id="mapa">Mapa</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="58" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 57;"><span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>viewof tipo <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"Bloco do prefeito"</span><span class="op">,</span> <span class="st">"Transição entre mandatos"</span>]<span class="op">,</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>                           {<span class="dt">label</span><span class="op">:</span> <span class="st">"Mapa"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"Bloco do prefeito"</span>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="63" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 62;"><span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>viewof mandato <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(tipo <span class="op">===</span> <span class="st">"Bloco do prefeito"</span> <span class="op">?</span> inicios <span class="op">:</span> inicios<span class="op">.</span><span class="fu">slice</span>(<span class="dv">1</span>)<span class="op">,</span> {</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> tipo <span class="op">===</span> <span class="st">"Bloco do prefeito"</span> <span class="op">?</span> <span class="st">"Mandato"</span> <span class="op">:</span> <span class="st">"Mandato de chegada"</span><span class="op">,</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  <span class="dt">format</span><span class="op">:</span> a <span class="kw">=&gt;</span> tipo <span class="op">===</span> <span class="st">"Bloco do prefeito"</span> <span class="op">?</span> <span class="fu">rotulo</span>(a) <span class="op">:</span> <span class="vs">`</span><span class="sc">${</span><span class="fu">rotulo</span>(a <span class="op">-</span> <span class="dv">4</span>)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">rotulo</span>(a)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2017</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="71" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 70;"><span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>mapa <span class="op">=</span> {</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> div <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="height: 620px; border-radius: 6px;"&gt;&lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>  <span class="kw">yield</span> div<span class="op">;</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> m <span class="op">=</span> L<span class="op">.</span><span class="fu">map</span>(div<span class="op">,</span> {<span class="dt">preferCanvas</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">zoomSnap</span><span class="op">:</span> <span class="fl">0.25</span>})<span class="op">;</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>  m<span class="op">.</span><span class="at">attributionControl</span><span class="op">.</span><span class="fu">addAttribution</span>(<span class="st">"Malhas: geobr/IBGE"</span>)<span class="op">;</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cor <span class="op">=</span> p <span class="kw">=&gt;</span> {</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (tipo <span class="op">===</span> <span class="st">"Bloco do prefeito"</span>) <span class="cf">return</span> coresBloco[p[<span class="st">"b"</span> <span class="op">+</span> mandato]] <span class="op">??</span> <span class="st">"#d1d5db"</span><span class="op">;</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> coresTransicao[<span class="fu">transicao</span>(p<span class="op">,</span> mandato)] <span class="op">??</span> <span class="st">"#d1d5db"</span><span class="op">;</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> dica <span class="op">=</span> p <span class="kw">=&gt;</span> {</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> linha <span class="op">=</span> a <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span><span class="fu">rotulo</span>(a)<span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>p[<span class="st">"p"</span> <span class="op">+</span> a] <span class="op">??</span> <span class="st">"sem informação"</span><span class="sc">}</span><span class="vs"> (</span><span class="sc">${</span>p[<span class="st">"b"</span> <span class="op">+</span> a] <span class="op">??</span> <span class="st">"–"</span><span class="sc">}</span><span class="vs">)`</span><span class="op">;</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tipo <span class="op">===</span> <span class="st">"Bloco do prefeito"</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>      <span class="op">?</span> <span class="vs">`&lt;b&gt;</span><span class="sc">${</span>p<span class="op">.</span><span class="at">nome</span><span class="sc">}</span><span class="vs"> (</span><span class="sc">${</span>p<span class="op">.</span><span class="at">uf</span><span class="sc">}</span><span class="vs">)&lt;/b&gt;&lt;br&gt;</span><span class="sc">${</span><span class="fu">linha</span>(mandato)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>      <span class="op">:</span> <span class="vs">`&lt;b&gt;</span><span class="sc">${</span>p<span class="op">.</span><span class="at">nome</span><span class="sc">}</span><span class="vs"> (</span><span class="sc">${</span>p<span class="op">.</span><span class="at">uf</span><span class="sc">}</span><span class="vs">)&lt;/b&gt;&lt;br&gt;</span><span class="sc">${</span><span class="fu">linha</span>(mandato <span class="op">-</span> <span class="dv">4</span>)<span class="sc">}</span><span class="vs">&lt;br&gt;</span><span class="sc">${</span><span class="fu">linha</span>(mandato)<span class="sc">}</span><span class="vs">&lt;br&gt;&lt;i&gt;</span><span class="sc">${</span><span class="fu">transicao</span>(p<span class="op">,</span> mandato) <span class="op">??</span> <span class="st">"sem informação"</span><span class="sc">}</span><span class="vs">&lt;/i&gt;`</span><span class="op">;</span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> camada <span class="op">=</span> L<span class="op">.</span><span class="fu">geoJSON</span>({<span class="dt">type</span><span class="op">:</span> <span class="st">"FeatureCollection"</span><span class="op">,</span> <span class="dt">features</span><span class="op">:</span> selecionados}<span class="op">,</span> {</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> f <span class="kw">=&gt;</span> ({<span class="dt">fillColor</span><span class="op">:</span> <span class="fu">cor</span>(f<span class="op">.</span><span class="at">properties</span>)<span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.9</span><span class="op">,</span> <span class="dt">weight</span><span class="op">:</span> <span class="fl">0.3</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> <span class="st">"#ffffff"</span>})<span class="op">,</span></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>    <span class="dt">onEachFeature</span><span class="op">:</span> (f<span class="op">,</span> l) <span class="kw">=&gt;</span> l<span class="op">.</span><span class="fu">bindTooltip</span>(<span class="fu">dica</span>(f<span class="op">.</span><span class="at">properties</span>)<span class="op">,</span> {<span class="dt">sticky</span><span class="op">:</span> <span class="kw">true</span>})</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">addTo</span>(m)<span class="op">;</span></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>  m<span class="op">.</span><span class="fu">fitBounds</span>(camada<span class="op">.</span><span class="fu">getBounds</span>())<span class="op">;</span></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>  invalidation<span class="op">.</span><span class="fu">then</span>(() <span class="kw">=&gt;</span> m<span class="op">.</span><span class="fu">remove</span>())<span class="op">;</span></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="99" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 98;"><span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cores <span class="op">=</span> tipo <span class="op">===</span> <span class="st">"Bloco do prefeito"</span> <span class="op">?</span> coresBloco <span class="op">:</span> coresTransicao<span class="op">;</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div class="legenda"&gt;</span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(cores)<span class="op">.</span><span class="fu">map</span>(([k<span class="op">,</span> v]) <span class="kw">=&gt;</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html</span><span class="vs">`&lt;span&gt;&lt;span class="cor" style="background:</span><span class="sc">${</span>v<span class="sc">}</span><span class="vs">"&gt;&lt;/span&gt;</span><span class="sc">${</span>k<span class="sc">}</span><span class="vs">&lt;/span&gt;`</span>)<span class="sc">}</span></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span&gt;&lt;span class="cor" style="background:#d1d5db"&gt;&lt;/span&gt;sem informação&lt;/span&gt;&lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p><span class="nota">Use os botões + e − ou a roda do mouse para aproximar. Passe o mouse sobre um município para ver o partido do prefeito. Bloco ideológico segundo Bolognesi, Ribeiro e Codato (2023), em três blocos.</span></p>
+</section>
+<section id="prefeitos" class="level2">
+<h2 class="anchored" data-anchor-id="prefeitos">Prefeitos</h2>
+<p>Bloco ideológico do prefeito em exercício no primeiro ano de cada mandato.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="114" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 113;"><span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(inicios<span class="op">.</span><span class="fu">map</span>(a <span class="kw">=&gt;</span> {</span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> {<span class="dt">Mandato</span><span class="op">:</span> <span class="fu">rotulo</span>(a)<span class="op">,</span> <span class="dt">esquerda</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">centro</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">direita</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="st">"sem informação"</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">;</span></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> f <span class="kw">of</span> selecionados) c[f<span class="op">.</span><span class="at">properties</span>[<span class="st">"b"</span> <span class="op">+</span> a] <span class="op">??</span> <span class="st">"sem informação"</span>]<span class="op">++;</span></span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a>  c[<span class="st">"% esquerda"</span>] <span class="op">=</span> <span class="fu">pct</span>(c<span class="op">.</span><span class="at">esquerda</span> <span class="op">/</span> selecionados<span class="op">.</span><span class="at">length</span>)<span class="op">;</span></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> c<span class="op">;</span></span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a>})<span class="op">,</span> {<span class="dt">rows</span><span class="op">:</span> <span class="dv">8</span>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="transições" class="level2">
+<h2 class="anchored" data-anchor-id="transições">Transições</h2>
+<p>Situação do prefeito em relação à esquerda entre o primeiro ano de dois mandatos consecutivos: são os grupos de tratamento e controle do desenho de diferenças em diferenças.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb9" data-startfrom="127" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 126;"><span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(inicios<span class="op">.</span><span class="fu">slice</span>(<span class="dv">1</span>)<span class="op">.</span><span class="fu">map</span>(a <span class="kw">=&gt;</span> {</span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> {<span class="st">"Transição"</span><span class="op">:</span> <span class="vs">`</span><span class="sc">${</span><span class="fu">rotulo</span>(a <span class="op">-</span> <span class="dv">4</span>)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">rotulo</span>(a)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a>             <span class="st">"segue na esquerda"</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="st">"saiu da esquerda"</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>             <span class="st">"entrou na esquerda"</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="st">"segue fora da esquerda"</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="st">"sem informação"</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">;</span></span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> f <span class="kw">of</span> selecionados) c[<span class="fu">transicao</span>(f<span class="op">.</span><span class="at">properties</span><span class="op">,</span> a) <span class="op">??</span> <span class="st">"sem informação"</span>]<span class="op">++;</span></span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> c<span class="op">;</span></span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>})<span class="op">,</span> {<span class="dt">rows</span><span class="op">:</span> <span class="dv">8</span>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="câmara-municipal" class="level2">
+<h2 class="anchored" data-anchor-id="câmara-municipal">Câmara Municipal</h2>
+<p>Primeiro ano de cada mandato; médias entre os municípios com informação. Coligação indisponível em 2001–2004 (dados incompletos na fonte).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb10" data-startfrom="141" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 140;"><span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(resumoUF<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> inicios<span class="op">.</span><span class="fu">includes</span>(d<span class="op">.</span><span class="at">ano</span>))<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> ({</span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Mandato"</span><span class="op">:</span> <span class="fu">rotulo</span>(d<span class="op">.</span><span class="at">ano</span>)<span class="op">,</span></span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Prefeito reeleito"</span><span class="op">:</span> <span class="fu">pct</span>(d<span class="op">.</span><span class="at">reeleito</span>)<span class="op">,</span></span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Cadeiras do partido do prefeito"</span><span class="op">:</span> <span class="fu">pct</span>(d<span class="op">.</span><span class="at">pct_partido</span>)<span class="op">,</span></span>
+<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Cadeiras da coligação do prefeito"</span><span class="op">:</span> <span class="fu">pct</span>(d<span class="op">.</span><span class="at">pct_coligacao</span>)<span class="op">,</span></span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Coligação com maioria"</span><span class="op">:</span> <span class="fu">pct</span>(d<span class="op">.</span><span class="at">maioria</span>)<span class="op">,</span></span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Nº efetivo de partidos"</span><span class="op">:</span> <span class="fu">num</span>(d<span class="op">.</span><span class="at">nep</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">,</span></span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Vereadores reeleitos"</span><span class="op">:</span> <span class="fu">pct</span>(d<span class="op">.</span><span class="at">renovacao</span>)</span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a>}))<span class="op">,</span> {<span class="dt">rows</span><span class="op">:</span> <span class="dv">8</span>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-10" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="finanças" class="level2">
+<h2 class="anchored" data-anchor-id="finanças">Finanças</h2>
+<section id="totais-dos-municípios" class="level3">
+<h3 class="anchored" data-anchor-id="totais-dos-municípios">Totais dos municípios</h3>
+<p>R$ bilhões de dezembro de 2024, deflacionados pelo IPCA. Soma dos municípios da UF selecionada.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb11" data-startfrom="159" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 158;"><span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">900</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">360</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="bu">String</span>(d)}<span class="op">,</span></span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"R$ bilhões"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {<span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(resumoUF<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">ano</span> <span class="op">&lt;=</span> <span class="dv">2025</span>)<span class="op">.</span><span class="fu">flatMap</span>(d <span class="kw">=&gt;</span> [</span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">ano</span><span class="op">:</span> d<span class="op">.</span><span class="at">ano</span><span class="op">,</span> <span class="dt">serie</span><span class="op">:</span> <span class="st">"Receita corrente"</span><span class="op">,</span> <span class="dt">valor</span><span class="op">:</span> d<span class="op">.</span><span class="at">receita_corrente_def</span> <span class="op">/</span> <span class="fl">1e9</span>}<span class="op">,</span></span>
+<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">ano</span><span class="op">:</span> d<span class="op">.</span><span class="at">ano</span><span class="op">,</span> <span class="dt">serie</span><span class="op">:</span> <span class="st">"Despesa com pessoal"</span><span class="op">,</span> <span class="dt">valor</span><span class="op">:</span> d<span class="op">.</span><span class="at">desp_pessoal_def</span> <span class="op">/</span> <span class="fl">1e9</span>}<span class="op">,</span></span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">ano</span><span class="op">:</span> d<span class="op">.</span><span class="at">ano</span><span class="op">,</span> <span class="dt">serie</span><span class="op">:</span> <span class="st">"Investimento"</span><span class="op">,</span> <span class="dt">valor</span><span class="op">:</span> d<span class="op">.</span><span class="at">investimento_def</span> <span class="op">/</span> <span class="fl">1e9</span>}</span>
+<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a>    ])<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">valor</span> <span class="op">&gt;</span> <span class="dv">0</span>)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"ano"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"valor"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"serie"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">tip</span><span class="op">:</span> <span class="kw">true</span>})</span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-11" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="composição-da-despesa" class="level3">
+<h3 class="anchored" data-anchor-id="composição-da-despesa">Composição da despesa</h3>
+<p>Medianas municipais da UF selecionada, em %. Despesa por função disponível a partir de 2002.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb12" data-startfrom="179" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 178;"><span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">900</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">360</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="bu">String</span>(d)}<span class="op">,</span></span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"%"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {<span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(resumoUF<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">ano</span> <span class="op">&lt;=</span> <span class="dv">2025</span>)<span class="op">.</span><span class="fu">flatMap</span>(d <span class="kw">=&gt;</span> [</span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">ano</span><span class="op">:</span> d<span class="op">.</span><span class="at">ano</span><span class="op">,</span> <span class="dt">serie</span><span class="op">:</span> <span class="st">"Pessoal / despesa total"</span><span class="op">,</span> <span class="dt">valor</span><span class="op">:</span> d<span class="op">.</span><span class="at">med_pessoal</span>}<span class="op">,</span></span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">ano</span><span class="op">:</span> d<span class="op">.</span><span class="at">ano</span><span class="op">,</span> <span class="dt">serie</span><span class="op">:</span> <span class="st">"Investimento / despesa total"</span><span class="op">,</span> <span class="dt">valor</span><span class="op">:</span> d<span class="op">.</span><span class="at">med_investimento</span>}<span class="op">,</span></span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">ano</span><span class="op">:</span> d<span class="op">.</span><span class="at">ano</span><span class="op">,</span> <span class="dt">serie</span><span class="op">:</span> <span class="st">"Saúde / despesa por função"</span><span class="op">,</span> <span class="dt">valor</span><span class="op">:</span> d<span class="op">.</span><span class="at">med_saude</span>}<span class="op">,</span></span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">ano</span><span class="op">:</span> d<span class="op">.</span><span class="at">ano</span><span class="op">,</span> <span class="dt">serie</span><span class="op">:</span> <span class="st">"Educação / despesa por função"</span><span class="op">,</span> <span class="dt">valor</span><span class="op">:</span> d<span class="op">.</span><span class="at">med_educacao</span>}<span class="op">,</span></span>
+<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">ano</span><span class="op">:</span> d<span class="op">.</span><span class="at">ano</span><span class="op">,</span> <span class="dt">serie</span><span class="op">:</span> <span class="st">"Autonomia fiscal"</span><span class="op">,</span> <span class="dt">valor</span><span class="op">:</span> d<span class="op">.</span><span class="at">med_autonomia</span>}</span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a>    ])<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">valor</span> <span class="op">!=</span> <span class="kw">null</span>)<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> ({<span class="op">...</span>d<span class="op">,</span> <span class="dt">valor</span><span class="op">:</span> <span class="dv">100</span> <span class="op">*</span> d<span class="op">.</span><span class="at">valor</span>}))<span class="op">,</span></span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">x</span><span class="op">:</span> <span class="st">"ano"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"valor"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"serie"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">tip</span><span class="op">:</span> <span class="kw">true</span>})</span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-12" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="dicionário-de-variáveis" class="level2">
+<h2 class="anchored" data-anchor-id="dicionário-de-variáveis">Dicionário de variáveis</h2>
+<p>As variáveis monetárias aparecem com três sufixos: <code>_corr</code> (R$ correntes), <code>_def</code> (R$ de dez/2024) e <code>_pc</code> (R$ de dez/2024 per capita).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb13" data-startfrom="202" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 201;"><span id="cb13-202"><a href="#cb13-202" aria-hidden="true" tabindex="-1"></a>viewof busca <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">search</span>(dicionario<span class="op">,</span> {<span class="dt">placeholder</span><span class="op">:</span> <span class="st">"Buscar variável ou descrição"</span>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-13" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb14" data-startfrom="206" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 205;"><span id="cb14-206"><a href="#cb14-206" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(busca<span class="op">,</span> {</span>
+<span id="cb14-207"><a href="#cb14-207" aria-hidden="true" tabindex="-1"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"modulo"</span><span class="op">,</span> <span class="st">"variavel"</span><span class="op">,</span> <span class="st">"descricao"</span><span class="op">,</span> <span class="st">"unidade"</span><span class="op">,</span> <span class="st">"nivel"</span><span class="op">,</span> <span class="st">"fonte"</span><span class="op">,</span> <span class="st">"anos"</span>]<span class="op">,</span></span>
+<span id="cb14-208"><a href="#cb14-208" aria-hidden="true" tabindex="-1"></a>  <span class="dt">header</span><span class="op">:</span> {<span class="dt">modulo</span><span class="op">:</span> <span class="st">"Módulo"</span><span class="op">,</span> <span class="dt">variavel</span><span class="op">:</span> <span class="st">"Variável"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Descrição"</span><span class="op">,</span></span>
+<span id="cb14-209"><a href="#cb14-209" aria-hidden="true" tabindex="-1"></a>           <span class="dt">unidade</span><span class="op">:</span> <span class="st">"Unidade"</span><span class="op">,</span> <span class="dt">nivel</span><span class="op">:</span> <span class="st">"Nível"</span><span class="op">,</span> <span class="dt">fonte</span><span class="op">:</span> <span class="st">"Fonte"</span><span class="op">,</span> <span class="dt">anos</span><span class="op">:</span> <span class="st">"Anos"</span>}<span class="op">,</span></span>
+<span id="cb14-210"><a href="#cb14-210" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> {<span class="dt">descricao</span><span class="op">:</span> <span class="dv">420</span>}<span class="op">,</span> <span class="dt">rows</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">layout</span><span class="op">:</span> <span class="st">"auto"</span></span>
+<span id="cb14-211"><a href="#cb14-211" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-14" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="metodologia" class="level2">
+<h2 class="anchored" data-anchor-id="metodologia">Metodologia</h2>
+<p>Documento vivo: registrar aqui cada decisão tomada durante a construção.</p>
+<section id="escopo" class="level3">
+<h3 class="anchored" data-anchor-id="escopo">Escopo</h3>
+<p>O projeto cobre só o que o mape_municipios não oferece: variáveis políticas derivadas do prefeito, composição da Câmara em cadeiras e finanças de 2000 a 2012 harmonizadas com o SICONFI. Tudo o mais (convênios, MUNIC, saúde, educação, assistência) é lido do mape_municipios na análise.</p>
+</section>
+<section id="unidade-e-chaves" class="level3">
+<h3 class="anchored" data-anchor-id="unidade-e-chaves">Unidade e chaves</h3>
+<ul>
+<li>Unidade: município (<code>cod_ibge</code>, 7 dígitos) × ano civil.</li>
+<li>Variáveis eleitorais municipais são medidas por mandato e repetidas nos quatro anos de governo. A eleição de 2000 define os anos de 2001 a 2004.</li>
+<li>Municípios criados no período entram a partir do primeiro mandato próprio.</li>
+</ul>
+</section>
+<section id="prefeito-módulo-1" class="level3">
+<h3 class="anchored" data-anchor-id="prefeito-módulo-1">Prefeito (módulo 1)</h3>
+<ul>
+<li>Fonte: <code>br_tse_eleicoes.resultados_candidato</code> (Base dos Dados). <code>id_municipio</code> já vem no código IBGE de 7 dígitos, e as siglas vêm atualizadas para o nome mais recente (PRB aparece como REPUBLICANOS, PPS como CIDADANIA etc.).</li>
+<li>Pleito = município × <code>ano</code> × <code>tipo_eleicao</code>. Eleições suplementares são identificadas por <code>tipo_eleicao</code> diferente de “eleicao ordinaria”.</li>
+<li>Linhas duplicadas na base (ocorrem em 2000) são removidas.</li>
+<li>Vencedor: <code>resultado == "eleito"</code> no último turno do pleito. Pleitos sem eleito são eleições anuladas (o mais votado teve o registro indeferido) e o mandato é preenchido por eleição suplementar; entre a anulação e a suplementar o município tem prefeito interino e fica NA. Pleitos com mais de um eleito são excluídos e listados no diagnóstico.</li>
+<li>Mandato: a eleição ordinária do ano <code>t</code> elege o mandato <code>t+1</code> a <code>t+4</code>; a suplementar completa o mandato vigente na data da eleição.</li>
+<li>Painel anual: em cada ano vale o prefeito em exercício em 1º de julho. Eleito em suplementar entra na data da eleição (a posse real é algumas semanas depois).</li>
+<li>Percentuais de voto calculados sobre a soma dos votos dados a candidatos no turno decisivo (proxy de votos válidos).</li>
+<li>Pessoa entre eleições: compara o título de eleitor quando as duas eleições o têm; senão, o nome normalizado (sem acentos, maiúsculas). O título vem vazio em 2000.</li>
+<li><code>reeleito</code> e <code>segundo_mandato</code>: o prefeito é a mesma pessoa do governo imediatamente anterior (inclui quem assumiu por suplementar, que conta como primeiro mandato).</li>
+<li>Presidente: tabela própria (<code>data/external/presidentes.csv</code>), referência em 1º de julho. Em 2016 vale Temer (interino desde maio). Bolsonaro sem partido em 2020-2021: alinhamento por partido fica NA; por bloco, direita.</li>
+<li>Governador: eleito no último turno da eleição geral; trocas no meio do mandato (renúncia, cassação) não são captadas.</li>
+<li>Ano 2000 (mandato 1997-2000) fica sem dados de prefeito: a Base dos Dados tem a eleição de 1996 só parcialmente.</li>
+<li>Fonte: Bolognesi, Ribeiro e Codato (2023), “Uma nova classificação ideológica dos partidos políticos brasileiros”, DADOS 66(2), Tabela 1 (médias de survey com especialistas, UFPR/ABCP, 2018).</li>
+<li>Cortes do artigo (p.&nbsp;16): extrema-esquerda 0–1,5; esquerda 1,51–3; centro-esquerda 3,01–4,49; centro 4,5–5,5; centro-direita 5,51–7; direita 7,01–8,5; extrema-direita 8,51–10.</li>
+<li>Três blocos: extrema-esquerda, esquerda e centro-esquerda → esquerda; centro → centro; centro-direita, direita e extrema-direita → direita.</li>
+<li>Resultado: esquerda = PSTU, PCO, PCB, PSOL, PCdoB, PT, PDT, PSB; centro = Rede, PPS/Cidadania, PV; todo o resto é direita, incluindo MDB (7,01), PSD e PSDB.</li>
+<li>Siglas históricas herdam a nota do partido sucessor (PMDB → MDB, PFL → DEM, PPB → Progressistas etc.); cada caso está anotado em <code>classificacao_bolognesi.csv</code>.</li>
+<li>Sem nota no artigo: União Brasil e PRD recebem bloco direita (os partidos de origem são todos de direita); PAN herda do PTB e PST e PGT herdam do PR (partidos que os incorporaram); PSN e UP ficam sem classificação.</li>
+<li>Limitação: a classificação é de 2018 e é aplicada a 2000–2024. O caso mais sensível é o MDB, que o próprio artigo (nota 7) registra como centro na maior parte da literatura anterior. Prever teste de robustez com o MDB como centro antes de 2016.</li>
+<li>Ambiguidade de sigla: “PL” designa o partido antigo (até 2006) e o ex-PR (2019 em diante). Tratar pelo ano da eleição.</li>
+<li>Eleições suplementares: vale o prefeito que de fato governou, com flag.</li>
+<li>Eleições apertadas (RDD): <code>margem_esquerda</code> compara o candidato de esquerda e o adversário de fora da esquerda mais votados. Usa o segundo turno quando houve; senão, o primeiro. Só existe nos municípios em que a disputa principal foi esquerda × não esquerda (<code>disputa_esq_naoesq</code> = 1). Variante a testar: margem esquerda × direita, excluindo o centro.</li>
+<li>Ciclo do mandato: <code>segundo_mandato</code> identifica o prefeito que não pode concorrer de novo; <code>ano_mandato</code> e <code>ano_eleitoral</code> controlam o ciclo político-orçamentário.</li>
+<li>Alinhamento: calculado por ano, porque presidente e governador mudam no meio do mandato municipal (posse em janeiro de 2003, 2007, 2011…).</li>
+</ul>
+</section>
+<section id="câmara-módulo-2" class="level3">
+<h3 class="anchored" data-anchor-id="câmara-módulo-2">Câmara (módulo 2)</h3>
+<ul>
+<li>Composição na eleição, sem migração partidária posterior.</li>
+<li>Número efetivo de partidos: Laakso e Taagepera (1979).</li>
+<li>Renovação: a identificação do mesmo vereador entre eleições é o ponto frágil (CPF ou título quando disponível; senão, nome + município com checagem manual de uma amostra).</li>
+<li>O tamanho das Câmaras mudou por regra legal (Resolução TSE de 2004 e EC 58/2009); controlar por <code>n_cadeiras</code>.</li>
+</ul>
+</section>
+<section id="finanças-módulo-3" class="level3">
+<h3 class="anchored" data-anchor-id="finanças-módulo-3">Finanças (módulo 3)</h3>
+<ul>
+<li>Quebra de série em 2013 com o SICONFI/PCASP: correspondência de contas documentada em <code>data/external/correspondencia_contas.csv</code> e teste da descontinuidade (2011-2014).</li>
+<li>Valores em reais correntes e deflacionados pelo IPCA.</li>
+<li>Municípios sem declaração no ano ficam <code>NA</code>, com flag, e não viram zero.</li>
+</ul>
+</section>
+<section id="pendências" class="level3">
+<h3 class="anchored" data-anchor-id="pendências">Pendências</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Confirmar no dicionário do mape_municipios que as variáveis dos módulos 1 e 2 não existem lá</label></li>
+<li><label><input type="checkbox">Decidir se o SICONFI 2013+ é lido do MAPE ou recoletado</label></li>
+<li><label><input type="checkbox">Licença dos dados e do código</label></li>
+<li><label><input type="checkbox">Forma de citação</label></li>
+</ul>
+</section>
+</section>
+<section id="como-reproduzir" class="level2">
+<h2 class="anchored" data-anchor-id="como-reproduzir">Como reproduzir</h2>
+<p>O código está no <a href="https://github.com/renansuzano/painel_politico_municipal">GitHub</a>. Os dados vêm da Base dos Dados (BigQuery) e exigem um projeto no Google Cloud.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Clonar o repositório e abrir painel_politico_municipal.Rproj</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Criar o arquivo .Renviron com:  billing_project_id=SEU-ID</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Rodar, em ordem:</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/01_prefeitos_tse.R"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/02_camara_vereadores.R"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/03_financas_finbra.R"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/90_painel.R"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Painel final</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>painel <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_parquet</span>(<span class="st">"output/painel_politico_municipal.parquet"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImdlbyAgICAgICAgPSBGaWxlQXR0YWNobWVudChcImRhZG9zL211bmljaXBpb3MuZ2VvanNvblwiKS5qc29uKClcbnJlc3VtbyAgICAgPSBGaWxlQXR0YWNobWVudChcImRhZG9zL3Jlc3Vtb191Zi5qc29uXCIpLmpzb24oKVxuZGljaW9uYXJpbyA9IEZpbGVBdHRhY2htZW50KFwiZGFkb3MvZGljaW9uYXJpby5qc29uXCIpLmpzb24oKVxuTCAgICAgICAgICA9IHJlcXVpcmUoXCJsZWFmbGV0QDEuOS40XCIpXG5cbmluaWNpb3MgPSBbMjAwMSwgMjAwNSwgMjAwOSwgMjAxMywgMjAxNywgMjAyMSwgMjAyNV1cbnJvdHVsbyAgPSBhID0+IGAke2F94oCTJHthICsgM31gXG51ZnMgICAgID0gW1wiQnJhc2lsXCIsIC4uLkFycmF5LmZyb20obmV3IFNldChnZW8uZmVhdHVyZXMubWFwKGYgPT4gZi5wcm9wZXJ0aWVzLnVmKSkpLnNvcnQoKV1cblxuY29yZXNCbG9jbyA9ICh7ZXNxdWVyZGE6IFwiI2MwMzkyYlwiLCBjZW50cm86IFwiI2YxYzQwZlwiLCBkaXJlaXRhOiBcIiMyYzNlNTBcIn0pXG5jb3Jlc1RyYW5zaWNhbyA9ICh7XG4gIFwic2VndWUgbmEgZXNxdWVyZGFcIjogXCIjZjFhOTliXCIsXG4gIFwic2FpdSBkYSBlc3F1ZXJkYVwiOiBcIiMyYjZjYjBcIixcbiAgXCJlbnRyb3UgbmEgZXNxdWVyZGFcIjogXCIjYzAzOTJiXCIsXG4gIFwic2VndWUgZm9yYSBkYSBlc3F1ZXJkYVwiOiBcIiNlMmU4ZjBcIlxufSlcblxudHJhbnNpY2FvID0gKHAsIGEpID0+IHtcbiAgY29uc3QgeCA9IHBbXCJiXCIgKyAoYSAtIDQpXSwgeSA9IHBbXCJiXCIgKyBhXTtcbiAgaWYgKHggPT0gbnVsbCB8fCB5ID09IG51bGwpIHJldHVybiBudWxsO1xuICBjb25zdCBleCA9IHggPT09IFwiZXNxdWVyZGFcIiwgZXkgPSB5ID09PSBcImVzcXVlcmRhXCI7XG4gIHJldHVybiBleCAmJiBleSA/IFwic2VndWUgbmEgZXNxdWVyZGFcIiA6IGV4ID8gXCJzYWl1IGRhIGVzcXVlcmRhXCJcbiAgICAgICA6IGV5ID8gXCJlbnRyb3UgbmEgZXNxdWVyZGFcIiA6IFwic2VndWUgZm9yYSBkYSBlc3F1ZXJkYVwiO1xufVxuXG5wY3QgPSB4ID0+IHggPT0gbnVsbCA/IFwi4oCTXCIgOiAoMTAwICogeCkudG9Mb2NhbGVTdHJpbmcoXCJwdC1CUlwiLCB7bWF4aW11bUZyYWN0aW9uRGlnaXRzOiAxfSkgKyBcIiVcIlxubnVtID0gKHgsIGQgPSAwKSA9PiB4ID09IG51bGwgPyBcIuKAk1wiIDogeC50b0xvY2FsZVN0cmluZyhcInB0LUJSXCIsIHttYXhpbXVtRnJhY3Rpb25EaWdpdHM6IGQsIG1pbmltdW1GcmFjdGlvbkRpZ2l0czogZH0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgdWYgPSBJbnB1dHMuc2VsZWN0KHVmcywge2xhYmVsOiBcIlVuaWRhZGUgZGEgRmVkZXJhw6fDo29cIiwgdmFsdWU6IFwiQnJhc2lsXCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoic2VsZWNpb25hZG9zID0gdWYgPT09IFwiQnJhc2lsXCIgPyBnZW8uZmVhdHVyZXMgOiBnZW8uZmVhdHVyZXMuZmlsdGVyKGYgPT4gZi5wcm9wZXJ0aWVzLnVmID09PSB1ZilcbnJlc3Vtb1VGID0gcmVzdW1vLmZpbHRlcihkID0+IGQudWYgPT09IHVmKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHRpcG8gPSBJbnB1dHMucmFkaW8oW1wiQmxvY28gZG8gcHJlZmVpdG9cIiwgXCJUcmFuc2nDp8OjbyBlbnRyZSBtYW5kYXRvc1wiXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIHtsYWJlbDogXCJNYXBhXCIsIHZhbHVlOiBcIkJsb2NvIGRvIHByZWZlaXRvXCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIG1hbmRhdG8gPSBJbnB1dHMuc2VsZWN0KHRpcG8gPT09IFwiQmxvY28gZG8gcHJlZmVpdG9cIiA/IGluaWNpb3MgOiBpbmljaW9zLnNsaWNlKDEpLCB7XG4gIGxhYmVsOiB0aXBvID09PSBcIkJsb2NvIGRvIHByZWZlaXRvXCIgPyBcIk1hbmRhdG9cIiA6IFwiTWFuZGF0byBkZSBjaGVnYWRhXCIsXG4gIGZvcm1hdDogYSA9PiB0aXBvID09PSBcIkJsb2NvIGRvIHByZWZlaXRvXCIgPyByb3R1bG8oYSkgOiBgJHtyb3R1bG8oYSAtIDQpfSDihpIgJHtyb3R1bG8oYSl9YCxcbiAgdmFsdWU6IDIwMTdcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJtYXBhID0ge1xuICBjb25zdCBkaXYgPSBodG1sYDxkaXYgc3R5bGU9XCJoZWlnaHQ6IDYyMHB4OyBib3JkZXItcmFkaXVzOiA2cHg7XCI+PC9kaXY+YDtcbiAgeWllbGQgZGl2O1xuXG4gIGNvbnN0IG0gPSBMLm1hcChkaXYsIHtwcmVmZXJDYW52YXM6IHRydWUsIHpvb21TbmFwOiAwLjI1fSk7XG4gIG0uYXR0cmlidXRpb25Db250cm9sLmFkZEF0dHJpYnV0aW9uKFwiTWFsaGFzOiBnZW9ici9JQkdFXCIpO1xuXG4gIGNvbnN0IGNvciA9IHAgPT4ge1xuICAgIGlmICh0aXBvID09PSBcIkJsb2NvIGRvIHByZWZlaXRvXCIpIHJldHVybiBjb3Jlc0Jsb2NvW3BbXCJiXCIgKyBtYW5kYXRvXV0gPz8gXCIjZDFkNWRiXCI7XG4gICAgcmV0dXJuIGNvcmVzVHJhbnNpY2FvW3RyYW5zaWNhbyhwLCBtYW5kYXRvKV0gPz8gXCIjZDFkNWRiXCI7XG4gIH07XG4gIGNvbnN0IGRpY2EgPSBwID0+IHtcbiAgICBjb25zdCBsaW5oYSA9IGEgPT4gYCR7cm90dWxvKGEpfTogJHtwW1wicFwiICsgYV0gPz8gXCJzZW0gaW5mb3JtYcOnw6NvXCJ9ICgke3BbXCJiXCIgKyBhXSA/PyBcIuKAk1wifSlgO1xuICAgIHJldHVybiB0aXBvID09PSBcIkJsb2NvIGRvIHByZWZlaXRvXCJcbiAgICAgID8gYDxiPiR7cC5ub21lfSAoJHtwLnVmfSk8L2I+PGJyPiR7bGluaGEobWFuZGF0byl9YFxuICAgICAgOiBgPGI+JHtwLm5vbWV9ICgke3AudWZ9KTwvYj48YnI+JHtsaW5oYShtYW5kYXRvIC0gNCl9PGJyPiR7bGluaGEobWFuZGF0byl9PGJyPjxpPiR7dHJhbnNpY2FvKHAsIG1hbmRhdG8pID8/IFwic2VtIGluZm9ybWHDp8Ojb1wifTwvaT5gO1xuICB9O1xuXG4gIGNvbnN0IGNhbWFkYSA9IEwuZ2VvSlNPTih7dHlwZTogXCJGZWF0dXJlQ29sbGVjdGlvblwiLCBmZWF0dXJlczogc2VsZWNpb25hZG9zfSwge1xuICAgIHN0eWxlOiBmID0+ICh7ZmlsbENvbG9yOiBjb3IoZi5wcm9wZXJ0aWVzKSwgZmlsbE9wYWNpdHk6IDAuOSwgd2VpZ2h0OiAwLjMsIGNvbG9yOiBcIiNmZmZmZmZcIn0pLFxuICAgIG9uRWFjaEZlYXR1cmU6IChmLCBsKSA9PiBsLmJpbmRUb29sdGlwKGRpY2EoZi5wcm9wZXJ0aWVzKSwge3N0aWNreTogdHJ1ZX0pXG4gIH0pLmFkZFRvKG0pO1xuICBtLmZpdEJvdW5kcyhjYW1hZGEuZ2V0Qm91bmRzKCkpO1xuICBpbnZhbGlkYXRpb24udGhlbigoKSA9PiBtLnJlbW92ZSgpKTtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcbiAgY29uc3QgY29yZXMgPSB0aXBvID09PSBcIkJsb2NvIGRvIHByZWZlaXRvXCIgPyBjb3Jlc0Jsb2NvIDogY29yZXNUcmFuc2ljYW87XG4gIHJldHVybiBodG1sYDxkaXYgY2xhc3M9XCJsZWdlbmRhXCI+JHtPYmplY3QuZW50cmllcyhjb3JlcykubWFwKChbaywgdl0pID0+XG4gICAgaHRtbGA8c3Bhbj48c3BhbiBjbGFzcz1cImNvclwiIHN0eWxlPVwiYmFja2dyb3VuZDoke3Z9XCI+PC9zcGFuPiR7a308L3NwYW4+YCl9XG4gICAgPHNwYW4+PHNwYW4gY2xhc3M9XCJjb3JcIiBzdHlsZT1cImJhY2tncm91bmQ6I2QxZDVkYlwiPjwvc3Bhbj5zZW0gaW5mb3JtYcOnw6NvPC9zcGFuPjwvZGl2PmA7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTgiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJJbnB1dHMudGFibGUoaW5pY2lvcy5tYXAoYSA9PiB7XG4gIGNvbnN0IGMgPSB7TWFuZGF0bzogcm90dWxvKGEpLCBlc3F1ZXJkYTogMCwgY2VudHJvOiAwLCBkaXJlaXRhOiAwLCBcInNlbSBpbmZvcm1hw6fDo29cIjogMH07XG4gIGZvciAoY29uc3QgZiBvZiBzZWxlY2lvbmFkb3MpIGNbZi5wcm9wZXJ0aWVzW1wiYlwiICsgYV0gPz8gXCJzZW0gaW5mb3JtYcOnw6NvXCJdKys7XG4gIGNbXCIlIGVzcXVlcmRhXCJdID0gcGN0KGMuZXNxdWVyZGEgLyBzZWxlY2lvbmFkb3MubGVuZ3RoKTtcbiAgcmV0dXJuIGM7XG59KSwge3Jvd3M6IDh9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiSW5wdXRzLnRhYmxlKGluaWNpb3Muc2xpY2UoMSkubWFwKGEgPT4ge1xuICBjb25zdCBjID0ge1wiVHJhbnNpw6fDo29cIjogYCR7cm90dWxvKGEgLSA0KX0g4oaSICR7cm90dWxvKGEpfWAsXG4gICAgICAgICAgICAgXCJzZWd1ZSBuYSBlc3F1ZXJkYVwiOiAwLCBcInNhaXUgZGEgZXNxdWVyZGFcIjogMCxcbiAgICAgICAgICAgICBcImVudHJvdSBuYSBlc3F1ZXJkYVwiOiAwLCBcInNlZ3VlIGZvcmEgZGEgZXNxdWVyZGFcIjogMCwgXCJzZW0gaW5mb3JtYcOnw6NvXCI6IDB9O1xuICBmb3IgKGNvbnN0IGYgb2Ygc2VsZWNpb25hZG9zKSBjW3RyYW5zaWNhbyhmLnByb3BlcnRpZXMsIGEpID8/IFwic2VtIGluZm9ybWHDp8Ojb1wiXSsrO1xuICByZXR1cm4gYztcbn0pLCB7cm93czogOH0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTEwIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiSW5wdXRzLnRhYmxlKHJlc3Vtb1VGLmZpbHRlcihkID0+IGluaWNpb3MuaW5jbHVkZXMoZC5hbm8pKS5tYXAoZCA9PiAoe1xuICBcIk1hbmRhdG9cIjogcm90dWxvKGQuYW5vKSxcbiAgXCJQcmVmZWl0byByZWVsZWl0b1wiOiBwY3QoZC5yZWVsZWl0byksXG4gIFwiQ2FkZWlyYXMgZG8gcGFydGlkbyBkbyBwcmVmZWl0b1wiOiBwY3QoZC5wY3RfcGFydGlkbyksXG4gIFwiQ2FkZWlyYXMgZGEgY29saWdhw6fDo28gZG8gcHJlZmVpdG9cIjogcGN0KGQucGN0X2NvbGlnYWNhbyksXG4gIFwiQ29saWdhw6fDo28gY29tIG1haW9yaWFcIjogcGN0KGQubWFpb3JpYSksXG4gIFwiTsK6IGVmZXRpdm8gZGUgcGFydGlkb3NcIjogbnVtKGQubmVwLCAyKSxcbiAgXCJWZXJlYWRvcmVzIHJlZWxlaXRvc1wiOiBwY3QoZC5yZW5vdmFjYW8pXG59KSksIHtyb3dzOiA4fSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTEiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB3aWR0aDogOTAwLCBoZWlnaHQ6IDM2MCwgbWFyZ2luTGVmdDogNjAsXG4gIHg6IHtsYWJlbDogbnVsbCwgdGlja0Zvcm1hdDogZCA9PiBTdHJpbmcoZCl9LFxuICB5OiB7bGFiZWw6IFwiUiQgYmlsaMO1ZXNcIiwgZ3JpZDogdHJ1ZX0sXG4gIGNvbG9yOiB7bGVnZW5kOiB0cnVlfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmxpbmVZKHJlc3Vtb1VGLmZpbHRlcihkID0+IGQuYW5vIDw9IDIwMjUpLmZsYXRNYXAoZCA9PiBbXG4gICAgICB7YW5vOiBkLmFubywgc2VyaWU6IFwiUmVjZWl0YSBjb3JyZW50ZVwiLCB2YWxvcjogZC5yZWNlaXRhX2NvcnJlbnRlX2RlZiAvIDFlOX0sXG4gICAgICB7YW5vOiBkLmFubywgc2VyaWU6IFwiRGVzcGVzYSBjb20gcGVzc29hbFwiLCB2YWxvcjogZC5kZXNwX3Blc3NvYWxfZGVmIC8gMWU5fSxcbiAgICAgIHthbm86IGQuYW5vLCBzZXJpZTogXCJJbnZlc3RpbWVudG9cIiwgdmFsb3I6IGQuaW52ZXN0aW1lbnRvX2RlZiAvIDFlOX1cbiAgICBdKS5maWx0ZXIoZCA9PiBkLnZhbG9yID4gMCksIHt4OiBcImFub1wiLCB5OiBcInZhbG9yXCIsIHN0cm9rZTogXCJzZXJpZVwiLCBzdHJva2VXaWR0aDogMiwgdGlwOiB0cnVlfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB3aWR0aDogOTAwLCBoZWlnaHQ6IDM2MCwgbWFyZ2luTGVmdDogNTAsXG4gIHg6IHtsYWJlbDogbnVsbCwgdGlja0Zvcm1hdDogZCA9PiBTdHJpbmcoZCl9LFxuICB5OiB7bGFiZWw6IFwiJVwiLCBncmlkOiB0cnVlfSxcbiAgY29sb3I6IHtsZWdlbmQ6IHRydWV9LFxuICBtYXJrczogW1xuICAgIFBsb3QubGluZVkocmVzdW1vVUYuZmlsdGVyKGQgPT4gZC5hbm8gPD0gMjAyNSkuZmxhdE1hcChkID0+IFtcbiAgICAgIHthbm86IGQuYW5vLCBzZXJpZTogXCJQZXNzb2FsIC8gZGVzcGVzYSB0b3RhbFwiLCB2YWxvcjogZC5tZWRfcGVzc29hbH0sXG4gICAgICB7YW5vOiBkLmFubywgc2VyaWU6IFwiSW52ZXN0aW1lbnRvIC8gZGVzcGVzYSB0b3RhbFwiLCB2YWxvcjogZC5tZWRfaW52ZXN0aW1lbnRvfSxcbiAgICAgIHthbm86IGQuYW5vLCBzZXJpZTogXCJTYcO6ZGUgLyBkZXNwZXNhIHBvciBmdW7Dp8Ojb1wiLCB2YWxvcjogZC5tZWRfc2F1ZGV9LFxuICAgICAge2FubzogZC5hbm8sIHNlcmllOiBcIkVkdWNhw6fDo28gLyBkZXNwZXNhIHBvciBmdW7Dp8Ojb1wiLCB2YWxvcjogZC5tZWRfZWR1Y2FjYW99LFxuICAgICAge2FubzogZC5hbm8sIHNlcmllOiBcIkF1dG9ub21pYSBmaXNjYWxcIiwgdmFsb3I6IGQubWVkX2F1dG9ub21pYX1cbiAgICBdKS5maWx0ZXIoZCA9PiBkLnZhbG9yICE9IG51bGwpLm1hcChkID0+ICh7Li4uZCwgdmFsb3I6IDEwMCAqIGQudmFsb3J9KSksXG4gICAge3g6IFwiYW5vXCIsIHk6IFwidmFsb3JcIiwgc3Ryb2tlOiBcInNlcmllXCIsIHN0cm9rZVdpZHRoOiAyLCB0aXA6IHRydWV9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBidXNjYSA9IElucHV0cy5zZWFyY2goZGljaW9uYXJpbywge3BsYWNlaG9sZGVyOiBcIkJ1c2NhciB2YXJpw6F2ZWwgb3UgZGVzY3Jpw6fDo29cIn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiSW5wdXRzLnRhYmxlKGJ1c2NhLCB7XG4gIGNvbHVtbnM6IFtcIm1vZHVsb1wiLCBcInZhcmlhdmVsXCIsIFwiZGVzY3JpY2FvXCIsIFwidW5pZGFkZVwiLCBcIm5pdmVsXCIsIFwiZm9udGVcIiwgXCJhbm9zXCJdLFxuICBoZWFkZXI6IHttb2R1bG86IFwiTcOzZHVsb1wiLCB2YXJpYXZlbDogXCJWYXJpw6F2ZWxcIiwgZGVzY3JpY2FvOiBcIkRlc2NyacOnw6NvXCIsXG4gICAgICAgICAgIHVuaWRhZGU6IFwiVW5pZGFkZVwiLCBuaXZlbDogXCJOw612ZWxcIiwgZm9udGU6IFwiRm9udGVcIiwgYW5vczogXCJBbm9zXCJ9LFxuICB3aWR0aDoge2Rlc2NyaWNhbzogNDIwfSwgcm93czogMjAsIGxheW91dDogXCJhdXRvXCJcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3VmJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3RpcG8nKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbWFuZGF0bycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdidXNjYScpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/renansuzano\.github\.io\/painel_politico_municipal\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
